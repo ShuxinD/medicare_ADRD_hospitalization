@@ -1,0 +1,115 @@
+#' Code: extract AD/ADRD hopspitalization info from general in-patient files
+#' Input: hospitalization files
+#' Output: "ADRD_`year`.fst"
+#' Author: Shuxin Dong
+#' First create date: 2021-02-03
+
+## setup ----
+rm(list = ls())
+gc()
+
+library(data.table)
+library(fst)
+library(NSAPHutils)
+library(lubridate)
+library(icd)
+
+setDTthreads(threads = 0)
+setwd("/nfs/home/S/shd968/shared_space/ci3_shd968/ADRDhospitalization/")
+dir_hospital <- "/nfs/home/S/shd968/shared_space/ci3_health_data/medicare/gen_admission/1999_2016/targeted_conditions/cache_data/admissions_by_year/"
+dir_output <- "/nfs/home/S/shd968/shared_space/ci3_analysis/ADRDdata/data/ADRDhospitalization_CCWlist/"
+
+## ICD code info ----
+outcomes <- list()
+outcomes[["ADRD"]] <- list()
+
+# outcomes[["ADRD"]][["icd9"]] <- c("290", # dementia group
+#                                   children("2900"), # senile dementia, uncomplicatied
+#                                   children("2901"), # Presenile dementia (brain syndrome w/ presenile dementia)
+#                                   children("2902"), # Senile dementia with delusional or depressive features
+#                                   children("2903"), # Senile dementia, w/ delirium
+#                                   children("2904"), # Vascular dementia
+#                                   children("2940"), # Amnestic syndrome (Korsakoff’s psychosis or syndrome, nonalcoholic)
+#                                   children("2941"), # Dementia in conditions classified elsewhere
+#                                   children("2948"), # Other persistent mental disorders due to conditions classified elsewhere
+#                                   children("3310"), # Alzheimer’s disease
+#                                   children("3311"), # Frontotemporal dementia
+#                                   children("3312"), # Senile degeneration of the brain
+#                                   children("3317"), # Cerebral degeneration in diseases classified elsewhere
+#                                   children("797")) # Senility without mention of psychosis)
+# outcomes[["ADRD"]][["icd10"]] <- c(children("F01"),
+#                                    children("F02"),
+#                                    "F0390",
+#                                    children("G30"),
+#                                    children("G310"), "G311", "G312",
+#                                    "R4181")
+
+outcomes[["AD"]] <- list(
+  "icd9" = c(children("3310")),
+  "icd10" = c(children("G300"), children("G301"), children("G308"), children("G309"))
+  )
+outcomes[["ADRD"]] <- list(
+  "icd9" = c(children("2900"), children("2901"), children("2902"), children("2903"), children("2904"),
+             children("2941"), children("2942"), children("2948"), children("797"),
+             children("3310"), children("3311"), children("3312"), children("3317")),
+  "icd10" = c(children("F015"), children("F028"), children("F039"), children("F04"),
+              children("G138"), children("F05"), children("F061"), children("F068"),
+              outcomes[["AD"]][["icd10"]], children("G311"), children("G312"),
+              children("G310"), children("G94"), children("R4184"), children("R54"))
+  )
+# outcomeDT <- rbindlist(list(
+#   data.table(icd = as.character(outcomes[["ADRD"]][["icd9"]]), ADRD = T),
+#   data.table(icd = as.character(outcomes[["ADRD"]][["icd10"]]), ADRD = T)))
+
+adrdICDs <- c(outcomes[["ADRD"]][["icd9"]], outcomes[["ADRD"]][["icd10"]])
+
+## extract hospitalization info ----
+#' clear out old data in case of re-run
+file.remove(list.files(dir_output, 
+                       pattern = ".fst",
+                       full.names = T))
+
+for (year_ in 2000:2016) {
+  cat("Loading", year_, "hospitalization file... \n")
+  adm_y <- read_data(dir_hospital, years = year_,
+                     columns = c("QID", "ADATE", "DDATE", "zipcode_R", paste0("DIAG", 1:10), paste0("diag", 11:25)))
+  diagICD_cols <- c(paste0("DIAG", 1:10), paste0("diag",11:25))
+  adm_y[ ,(diagICD_cols) := lapply(.SD, as.character), # Change class of diagnosis codes to character
+         .SDcols = diagICD_cols]
+  
+  adm_y[, ADATE := dmy(ADATE)][, DDATE := dmy(DDATE)]
+  adm_y[, year := year(ADATE)]
+  adm_y <- adm_y[year %in% 2000:2016,] # only include admission year between 2000 and 2016
+  adm_y[, ADRD_primary := DIAG1 %in% adrdICDs]
+  adm_y[, ADRD_any :=
+          DIAG1 %in% adrdICDs|
+          DIAG2 %in% adrdICDs|
+          DIAG3 %in% adrdICDs|
+          DIAG4 %in% adrdICDs|
+          DIAG5 %in% adrdICDs|
+          DIAG6 %in% adrdICDs|
+          DIAG7 %in% adrdICDs|
+          DIAG8 %in% adrdICDs|
+          DIAG9 %in% adrdICDs|
+          DIAG10 %in% adrdICDs|
+          diag11 %in% adrdICDs|
+          diag12 %in% adrdICDs|
+          diag13 %in% adrdICDs|
+          diag14 %in% adrdICDs|
+          diag15 %in% adrdICDs|
+          diag16 %in% adrdICDs|
+          diag17 %in% adrdICDs|
+          diag18 %in% adrdICDs|
+          diag19 %in% adrdICDs|
+          diag20 %in% adrdICDs|
+          diag21 %in% adrdICDs|
+          diag22 %in% adrdICDs|
+          diag23 %in% adrdICDs|
+          diag24 %in% adrdICDs|
+          diag25 %in% adrdICDs]
+  print(dim(adm_y[(ADRD_any),])[1])
+  
+  write_fst(adm_y[(ADRD_any),], paste0(dir_output, "ADRD_", year_, ".fst"))
+  gc()
+}
+gc()
