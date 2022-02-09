@@ -17,7 +17,7 @@ library(icd)
 setDTthreads(threads = 0)
 setwd("/nfs/home/S/shd968/shared_space/ci3_shd968/ADRDhospitalization/")
 dir_hospital <- "/nfs/home/S/shd968/shared_space/ci3_health_data/medicare/gen_admission/1999_2016/targeted_conditions/cache_data/admissions_by_year/"
-dir_output <- "/nfs/home/S/shd968/shared_space/ci3_analysis/ADRDdata/data/ADRDhospitalization_CCWlist/"
+dir_output <- "/nfs/home/S/shd968/shared_space/ci3_analysis/data_ADRDhospitalization/ADRDhospitalization_CCWlist/"
 
 ## ICD code info ----
 outcomes <- list()
