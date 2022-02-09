@@ -72,8 +72,8 @@ file.remove(list.files(dir_output,
 for (year_ in 2000:2016) {
   cat("Loading", year_, "hospitalization file... \n")
   adm_y <- read_data(dir_hospital, years = year_,
-                     columns = c("QID", "ADATE", "DDATE", "zipcode_R", paste0("DIAG", 1:10), paste0("diag", 11:25)))
-  diagICD_cols <- c(paste0("DIAG", 1:10), paste0("diag",11:25))
+                     columns = c("QID", "ADATE", "DDATE", "zipcode_R", paste0("DIAG", 1:10)))
+  diagICD_cols <- c(paste0("DIAG", 1:10))
   adm_y[ ,(diagICD_cols) := lapply(.SD, as.character), # Change class of diagnosis codes to character
          .SDcols = diagICD_cols]
   
@@ -91,22 +91,7 @@ for (year_ in 2000:2016) {
           DIAG7 %in% adrdICDs|
           DIAG8 %in% adrdICDs|
           DIAG9 %in% adrdICDs|
-          DIAG10 %in% adrdICDs|
-          diag11 %in% adrdICDs|
-          diag12 %in% adrdICDs|
-          diag13 %in% adrdICDs|
-          diag14 %in% adrdICDs|
-          diag15 %in% adrdICDs|
-          diag16 %in% adrdICDs|
-          diag17 %in% adrdICDs|
-          diag18 %in% adrdICDs|
-          diag19 %in% adrdICDs|
-          diag20 %in% adrdICDs|
-          diag21 %in% adrdICDs|
-          diag22 %in% adrdICDs|
-          diag23 %in% adrdICDs|
-          diag24 %in% adrdICDs|
-          diag25 %in% adrdICDs]
+          DIAG10 %in% adrdICDs]
   print(dim(adm_y[(ADRD_any),])[1])
   
   write_fst(adm_y[(ADRD_any),], paste0(dir_output, "ADRD_", year_, ".fst"))

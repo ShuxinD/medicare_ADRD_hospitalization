@@ -16,6 +16,7 @@ setwd("/nfs/nsaph_ci3/ci3_shd968/ADRDhospitalization/")
 
 ## load data----
 dir_input_hospital <- "/nfs/home/S/shd968/shared_space/ci3_analysis/data_ADRDhospitalization/ADRDhospitalization_CCWlist/"
+
 ADRDhosp <- NULL
 for (i in 2000:2016) {
   adm_ <- read_fst(paste0(dir_input_hospital, "ADRD_", i,".fst"), as.data.table = T)
@@ -36,4 +37,3 @@ dev.off()
 pdf(paste0(getwd(),"/ADRDtrend_uniqueQIDyear.pdf"))
 hist(unique(ADRDhosp[,.(QID,year)])[,year], main = "ADRD hospitalization count", xlab = "calendar year")
 dev.off()
-
