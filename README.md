@@ -8,6 +8,8 @@ We decided to use CCW's ICD list to identify ADRD in the first 10 billing codes 
 
 We want to have consistent number of hospitalizations with ADRD over 2000-2016. We achieved it only with CCW's list: https://www2.ccwdata.org/web/guest/condition-categories
 
+[ccw-cond-algo-alzdisorders.pdf](https://github.com/ShuxinD/ADRDdata/files/8043131/ccw-cond-algo-alzdisorders.pdf)
+
 The plot with Shuxin's list generated from Lidia's and Taylor's papers:
 
 [ADRDtrend.pdf](https://github.com/ShuxinD/ADRDdata/files/8043029/ADRDtrend.pdf)
