@@ -41,7 +41,7 @@ outcomes[["ADRD"]] <- list(
               children("F05"),
               children("F061"), children("F068"), 
               children("G300"), children("G301"), children("G308"), children("G309"), children("G311"), children("G312"), children("G3101"), children("G3109"),
-              children("G94"), children("R4181"), children("R54"))
+              children("G94"), children("R4181"), children("R54")))
   
 ## following is Shuxin's original list based on Taylor and Lidia's paper
 # outcomes[["ADRD"]][["icd9"]] <- c("290", # dementia group
