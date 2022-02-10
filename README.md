@@ -6,7 +6,7 @@ We decided to use CCW's ICD list to identify ADRD in the first 10 billing codes 
 
 ## why CCW's ICD list instead of others?
 
-We want to have consistent number of hospitalizations with ADRD over 2000-2016. We achieved it only with CCW's list.
+We want to have consistent number of hospitalizations with ADRD over 2000-2016. We achieved it only with CCW's list: https://www2.ccwdata.org/web/guest/condition-categories
 
 The plot with Shuxin's list generated from Lidia's and Taylor's papers:
 
