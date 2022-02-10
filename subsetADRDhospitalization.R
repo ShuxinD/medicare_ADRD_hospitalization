@@ -28,14 +28,21 @@ outcomes[["AD"]] <- list(
   "icd10" = c(children("G300"), children("G301"), children("G308"), children("G309"))
 )
 outcomes[["ADRD"]] <- list(
-  "icd9" = c(children("2900"), children("2901"), children("2902"), children("2903"), children("2904"),
-             children("2941"), children("2942"), children("2948"), children("797"),
-             children("3310"), children("3311"), children("3312"), children("3317")),
-  "icd10" = c(children("F015"), children("F028"), children("F039"), children("F04"),
-              children("G138"), children("F05"), children("F061"), children("F068"),
-              outcomes[["AD"]][["icd10"]], children("G311"), children("G312"),
-              children("G310"), children("G94"), children("R4184"), children("R54"))
-)
+  "icd9" = c(children("3310"), children("33111"), children("33119"), children("3312"), children("3317"),
+             children("2900"), children("29010"), children("29011"), children("29012"), children("29013"), 
+             children("29020"), children("29021"),
+             children("2903"), children("29040"), children("29041"), children("29042"), children("29043"), children("2940"),
+             children("29410"), children("29411"), children("29420"), children("29421"), children("2948"), children("797")),
+  "icd10" = c(children("F0150"), children("F0151"), 
+              children("F0280"), children("F0281"), 
+              children("F0390"), children("F0391"), 
+              children("F04"), 
+              children("G138"), 
+              children("F05"),
+              children("F061"), children("F068"), 
+              children("G300"), children("G301"), children("G308"), children("G309"), children("G311"), children("G312"), children("G3101"), children("G3109"),
+              children("G94"), children("R4181"), children("R54"))
+  
 ## following is Shuxin's original list based on Taylor and Lidia's paper
 # outcomes[["ADRD"]][["icd9"]] <- c("290", # dementia group
 #                                   children("2900"), # senile dementia, uncomplicatied
