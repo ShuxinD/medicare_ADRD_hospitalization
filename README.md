@@ -29,7 +29,7 @@ The plot with CCW's list but screening for all 25 codes:
 | ADATE | Medicare | Admission date | Time |
 | DDATE | Medicare | Discharge date | Time |
 | zipcode_R | Medicare | Zipcode | Location |
-| DIAG 1-10 | Medicare | Diagnosis code | Outcome |
+| DIAG 1-10 | Medicare | Billing codes as ICD codes | Outcome |
 | AGE | Medicare | Age | Confounder |
 | Sex_gp | Medicare | Sex | Confounder |
 | Race_gp | Medicare | Race | Confounder |
@@ -37,16 +37,16 @@ The plot with CCW's list but screening for all 25 codes:
 | SSA_CNTY_CD | Medicare | County code | Location |
 | PROV_NUM | Medicare | Hospital ID | Location |
 | ADM_SOURCE | Medicare | Admission source | Confounder |
-| ADM_TYPE | Medicare | Admission type (1 - Emergency, 2 - Urgent, 3 - Elective)) | Confounder |
+| ADM_TYPE | Medicare | Admission type (1 - Emergency, 2 - Urgent, 3 - Elective) | Confounder |
 | Dual | Medicare | Eligible for both Medicare and Medicaid (1 - yes, 0 - otherwise) | Confounder |
-| Year | R | Year of hospital admission (from 2000 to 2016) | Time |
-| AD_primary | R | Do AD ICD codes apear as first diagnosis? (T/F) | Outcome |
-| AD_any | R | Is AD ICD codes in any of the DIAG 1-10? (T/F) | Outcome |
+| year | R | Year of hospital admission (from 2000 to 2016) | Time |
+| AD_primary | R | Does the ICD code of Alzheimer's disease appear in the first billing code? (T/F) | Outcome |
+| AD_any | R | Does the ICD code of Alzheimer's disease appear in any of the first ten billing codes (DIAG 1-10)? (T/F) | Outcome |
 | ADRD_primary | R | Do ADRD ICD codes appear as first diagnosis? (T/F) | Outcome |
-| ADRD_any | R | Is ADRD ICD code among DIAG 1-10? (T/F) | Outcome |
+| ADRD_any | R | Do ADRD ICD codes appear in any of the first ten billing codes (DIAG 1-10)? (T/F) | Outcome |
 
-|  | List of ICD codes (used as inclusion criteria) |
-| ------ | ---------------------------------- |
+|  | List ICD codes to identify AD/ADRD (used as exclusion/inclusion criteria) |
+| ------ | ------------------------------------------------------------------- |
 | ICD9   | 3310, 33111, 33119, 3312, 3317, 2900, 29010, 29011, 29012, 29013, 29020, 29021, 2903, 29040, 29041, 29042, 29043, 2940, 29410, 29411, 29420, 29421, 2948, 797 |
 | ICD10 | F0150, F0151, F0280, F0281, F0390, F0391, F04, G138, F05, F061, F068, G300, G301, G308, G309, G311, G312, G3101, G3109, G94, R4181, R54 |
 
