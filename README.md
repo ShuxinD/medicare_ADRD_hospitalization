@@ -21,6 +21,21 @@ The plot with CCW's list but screening for all 25 codes:
 
 [ADRDtrend.pdf](https://github.com/ShuxinD/ADRDdata/files/8043033/ADRDtrend.pdf)
 
+## Data Columns
+
+``` R
+> library(fst)
+> df <- read_fst("ADRD_2000.fst")
+> colnames(df)
+
+[1] "QID"          "ADATE"        "DDATE"        "zipcode_R"    "DIAG1"       
+ [6] "DIAG2"        "DIAG3"        "DIAG4"        "DIAG5"        "DIAG6"       
+[11] "DIAG7"        "DIAG8"        "DIAG9"        "DIAG10"       "AGE"         
+[16] "Sex_gp"       "Race_gp"      "SSA_STATE_CD" "SSA_CNTY_CD"  "PROV_NUM"    
+[21] "ADM_SOURCE"   "ADM_TYPE"     "Dual"         "year"         "AD_primary"  
+[26] "AD_any"       "ADRD_primary" "ADRD_any"   
+```
+
 ## Data Dictionary 
 
 | Fieldname | Source |  Description | Role |
@@ -49,6 +64,8 @@ The plot with CCW's list but screening for all 25 codes:
 | ------ | ------------------------------------------------------------------- |
 | ICD9   | 3310, 33111, 33119, 3312, 3317, 2900, 29010, 29011, 29012, 29013, 29020, 29021, 2903, 29040, 29041, 29042, 29043, 2940, 29410, 29411, 29420, 29421, 2948, 797 |
 | ICD10 | F0150, F0151, F0280, F0281, F0390, F0391, F04, G138, F05, F061, F068, G300, G301, G308, G309, G311, G312, G3101, G3109, G94, R4181, R54 |
+
+## Variable Description 
 
 | | ADM_SOURCE - Admission source |
 | - | ------------------ |
