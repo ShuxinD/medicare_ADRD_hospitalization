@@ -1,4 +1,4 @@
-#' Code: extract AD/ADRD hopspitalization info from general in-patient files
+#' Code: extract AD/ADRD hospitalization info from in-patient files (MedPAR)
 #' Input: hospitalization files
 #' Output: "ADRD_`year`.fst"
 #' Author: Shuxin Dong
@@ -10,7 +10,7 @@ gc()
 
 library(data.table)
 library(fst)
-library(NSAPHutils)
+# library(NSAPHutils)
 library(lubridate)
 library(icd)
 
@@ -131,9 +131,29 @@ for (year_ in 2000:2016) {
           DIAG8 %in% adICDs|
           DIAG9 %in% adICDs|
           DIAG10 %in% adICDs]
+  adm_y[, AD_secondary :=
+          DIAG2 %in% adICDs|
+          DIAG3 %in% adICDs|
+          DIAG4 %in% adICDs|
+          DIAG5 %in% adICDs|
+          DIAG6 %in% adICDs|
+          DIAG7 %in% adICDs|
+          DIAG8 %in% adICDs|
+          DIAG9 %in% adICDs|
+          DIAG10 %in% adICDs]
   adm_y[, ADRD_primary := DIAG1 %in% adrdICDs]
   adm_y[, ADRD_any :=
           DIAG1 %in% adrdICDs|
+          DIAG2 %in% adrdICDs|
+          DIAG3 %in% adrdICDs|
+          DIAG4 %in% adrdICDs|
+          DIAG5 %in% adrdICDs|
+          DIAG6 %in% adrdICDs|
+          DIAG7 %in% adrdICDs|
+          DIAG8 %in% adrdICDs|
+          DIAG9 %in% adrdICDs|
+          DIAG10 %in% adrdICDs]
+  adm_y[, ADRD_secondary :=
           DIAG2 %in% adrdICDs|
           DIAG3 %in% adrdICDs|
           DIAG4 %in% adrdICDs|
