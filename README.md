@@ -28,12 +28,11 @@ The plot with CCW's list but screening for all 25 codes:
 > df <- read_fst("ADRD_2000.fst")
 > colnames(df)
 
-[1] "QID"          "ADATE"        "DDATE"        "zipcode_R"    "DIAG1"       
- [6] "DIAG2"        "DIAG3"        "DIAG4"        "DIAG5"        "DIAG6"       
-[11] "DIAG7"        "DIAG8"        "DIAG9"        "DIAG10"       "AGE"         
-[16] "Sex_gp"       "Race_gp"      "SSA_STATE_CD" "SSA_CNTY_CD"  "PROV_NUM"    
-[21] "ADM_SOURCE"   "ADM_TYPE"     "Dual"         "year"         "AD_primary"  
-[26] "AD_any"       "ADRD_primary" "ADRD_any"   
+ [1] "QID"            "ADATE"          "DDATE"          "zipcode_R"      "DIAG1"          "DIAG2"         
+ [7] "DIAG3"          "DIAG4"          "DIAG5"          "DIAG6"          "DIAG7"          "DIAG8"         
+[13] "DIAG9"          "DIAG10"         "AGE"            "Sex_gp"         "Race_gp"        "SSA_STATE_CD"  
+[19] "SSA_CNTY_CD"    "PROV_NUM"       "ADM_SOURCE"     "ADM_TYPE"       "Dual"           "year"          
+[25] "AD_primary"     "AD_any"         "AD_secondary"   "ADRD_primary"   "ADRD_any"       "ADRD_secondary"
 ```
 
 ## Data Dictionary 
@@ -57,8 +56,10 @@ The plot with CCW's list but screening for all 25 codes:
 | year | R | Year of hospital admission (from 2000 to 2016) | Outcome |
 | AD_primary | R | Does the ICD code of Alzheimer's disease appear in the first billing code? (T/F) | Outcome |
 | AD_any | R | Does the ICD code of Alzheimer's disease appear in any of the first ten billing codes (DIAG 1-10)? (T/F) | Outcome |
+| AD_secondary | R | Does the ICD code of Alzheimer's disease appear in any of the second to tenth billing codes (DIAG 2-10)? (T/F) | Outcome |
 | ADRD_primary | R | Do ADRD ICD codes appear as first diagnosis? (T/F) | Outcome |
 | ADRD_any | R | Do ADRD ICD codes appear in any of the first ten billing codes (DIAG 1-10)? (T/F) | Outcome |
+| ADRD_secondary | R | Do ADRD ICD codes appear in any of the second to tenth billing codes (DIAG 2-10)? (T/F) | Outcome |
 
 |  | List ICD codes to identify AD/ADRD (used as exclusion/inclusion criteria). Ref: [ccw-cond-algo-alzdisorders.pdf](https://github.com/ShuxinD/ADRDdata/files/8043131/ccw-cond-algo-alzdisorders.pdf) |
 | ------ | ------------------------------------------------------------------- |
